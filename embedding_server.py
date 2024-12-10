@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from sentence_transformers import SentenceTransformer
 import numpy as np
+import os
 
 # Initialize the SentenceTransformer model
 model = SentenceTransformer('all-MiniLM-L6-v2')  # You can use other pre-trained models
@@ -26,4 +27,5 @@ def embed():
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5001)
+    port = int(os.environ.get("PORT", 5001))  # Default to 5001 if PORT is not set
+    app.run(host='0.0.0.0', port=port)
